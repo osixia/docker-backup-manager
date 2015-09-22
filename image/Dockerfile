@@ -9,7 +9,7 @@ CMD ["/container/tool/run"]
 # including process and container start files
 RUN apt-get -y update \
 		&& LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
-			backup-manager \
+			backup-manager gnupg \
 		&& /container/tool/install-service-available cron \
 		&& rm -f /etc/backup-manager.conf
 
