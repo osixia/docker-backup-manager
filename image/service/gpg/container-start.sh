@@ -1,34 +1,40 @@
 #!/bin/bash -e
 
-FIRST_START_DONE="/etc/docker-backup-manager-first-start-done"
+FIRST_START_DONE="/etc/docker-gpg-first-start-done"
 
 # container first start
 if [ ! -e "$FIRST_START_DONE" ]; then
 
-  # adapt cronjobs file
-  sed -i "s|{{ BACKUP_MANAGER_CRON_EXP }}|${BACKUP_MANAGER_CRON_EXP}|g" /container/service/backup-manager/assets/cronjobs
 
-  echo "link /container/service/backup-manager/assets/backup-manager.conf to /etc/backup-manager.conf"
-  ln -s /container/service/backup-manager/assets/backup-manager.conf /etc/backup-manager.conf
+  if [ "${BACKUP_MANAGER_ENCRYPTION,,}" == "true" ]; then
 
-  #
-  # bootstrap config
-  #
-  sed -i "s|{{ BACKUP_MANAGER_REPOSITORY }}|${BACKUP_MANAGER_REPOSITORY}|g" /etc/backup-manager.conf
-  sed -i "s|{{ BACKUP_MANAGER_TTL }}|${BACKUP_MANAGER_TTL}|g" /etc/backup-manager.conf
-  sed -i "s|{{ BACKUP_MANAGER_TARBALL_DIRECTORIES }}|${BACKUP_MANAGER_TARBALL_DIRECTORIES}|g" /etc/backup-manager.conf
-  sed -i "s|{{ BACKUP_MANAGER_UPLOAD_METHOD }}|${BACKUP_MANAGER_UPLOAD_METHOD}|g" /etc/backup-manager.conf
-  sed -i "s|{{ BACKUP_MANAGER_UPLOAD_HOSTS }}|${BACKUP_MANAGER_UPLOAD_HOSTS}|g" /etc/backup-manager.conf
-  sed -i "s|{{ BACKUP_MANAGER_UPLOAD_FTP_USER }}|${BACKUP_MANAGER_UPLOAD_FTP_USER}|g" /etc/backup-manager.conf
-  sed -i "s|{{ BACKUP_MANAGER_UPLOAD_FTP_PASSWORD }}|${BACKUP_MANAGER_UPLOAD_FTP_PASSWORD}|g" /etc/backup-manager.conf
-  sed -i "s|{{ BACKUP_MANAGER_UPLOAD_TTL }}|${BACKUP_MANAGER_UPLOAD_TTL}|g" /etc/backup-manager.conf
+    echo "Use encryption"
 
-  # encryption
-  if [ -n $BACKUP_MANAGER_ENCRYPTION_RECIPIENT ]; then
-    sed -i "s|# export BM_ENCRYPTION_METHOD|export BM_ENCRYPTION_METHOD|g" /etc/backup-manager.conf
-    sed -i "s|# export BM_ENCRYPTION_RECIPIENT=\"{{ BACKUP_MANAGER_ENCRYPTION_RECIPIENT }}\"|export BM_ENCRYPTION_RECIPIENT=\"{{ BACKUP_MANAGER_ENCRYPTION_RECIPIENT }}\"|g" /etc/backup-manager.conf
+    TEMP_FILE="trusted-key.tmp"
 
-    sed -i "s|{{ BACKUP_MANAGER_ENCRYPTION_RECIPIENT }}|${BACKUP_MANAGER_ENCRYPTION_RECIPIENT}|g" /etc/backup-manager.conf
+    ls -al /container/service/gpg/assets/
+
+    # add public keys to gpg
+    for f in $(find /container/service/gpg/assets/ -type f ! -name 'README.md'); do
+      echo "Add key ${f}"
+      gpg --import ${f}
+    done
+
+    # add recipient key to trusted keys
+    echo "Recipient key : ${BACKUP_MANAGER_ENCRYPTION_RECIPIENT}"
+    TRUST_VALUE=':6:'
+    TRUSTVAR=`gpg --fingerprint ${BACKUP_MANAGER_ENCRYPTION_RECIPIENT}|grep Key|cut -d= -f2|sed 's/ //g'`
+
+    if [ -z "$TRUSTVAR" ]; then
+      echo "Error gpg key ${BACKUP_MANAGER_ENCRYPTION_RECIPIENT} not found"
+      exit 1
+    fi
+
+    echo $TRUSTVAR$TRUST_VALUE >> $TEMP_FILE
+    gpg --import-ownertrust $TEMP_FILE
+
+    rm -f $TEMP_FILE
+
   fi
 
   touch $FIRST_START_DONE

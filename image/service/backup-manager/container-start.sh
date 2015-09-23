@@ -24,7 +24,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   sed -i "s|{{ BACKUP_MANAGER_UPLOAD_TTL }}|${BACKUP_MANAGER_UPLOAD_TTL}|g" /etc/backup-manager.conf
 
   # encryption
-  if [ -n $BACKUP_MANAGER_ENCRYPTION_RECIPIENT ]; then
+  if [ "${BACKUP_MANAGER_ENCRYPTION,,}" == "true" ]; then
     sed -i "s|# export BM_ENCRYPTION_METHOD|export BM_ENCRYPTION_METHOD|g" /etc/backup-manager.conf
     sed -i "s|# export BM_ENCRYPTION_RECIPIENT=\"{{ BACKUP_MANAGER_ENCRYPTION_RECIPIENT }}\"|export BM_ENCRYPTION_RECIPIENT=\"{{ BACKUP_MANAGER_ENCRYPTION_RECIPIENT }}\"|g" /etc/backup-manager.conf
 
