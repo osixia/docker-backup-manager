@@ -12,8 +12,6 @@ if [ ! -e "$FIRST_START_DONE" ]; then
 
     TEMP_FILE="trusted-key.tmp"
 
-    ls -al /container/service/gpg/assets/
-
     # add public keys to gpg
     for f in $(find /container/service/gpg/assets/ -type f ! -name 'README.md'); do
       echo "Add key ${f}"

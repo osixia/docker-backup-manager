@@ -39,6 +39,13 @@ Upload configuration:
 - **BACKUP_MANAGER_UPLOAD_FTP_PASSWORD**: Ftp password. Defaults to `ftp-password`.
 - **BACKUP_MANAGER_UPLOAD_TTL**: Backup TTL on the ftp hosts in days. Defaults to `60`.
 
+Encryption configuration:
+
+- **BACKUP_MANAGER_ENCRYPTION**: Encrypt backups. Defaults to `false`.
+- **BACKUP_MANAGER_ENCRYPTION_RECIPIENT**: GPG recipient. Defaults to `Mike Ross`.
+
+More help: https://raw.githubusercontent.com/sukria/Backup-Manager/master/doc/user-guide.txt
+
 
 ### Set environment variables at run time :
 
