@@ -23,7 +23,7 @@ RUN /container/tool/install-service \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add default env variables
-ADD env.yaml /etc/env.yaml
+ADD env.yaml /container/environment/env.yaml
 
 # Set backup data in a data volume
 # Must match env var BACKUP_MANAGER_REPOSITORY
