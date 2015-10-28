@@ -23,8 +23,6 @@ Environement variables defaults are set in **image/env.yaml**. You can modify en
 
 - **BACKUP_MANAGER_TARBALL_DIRECTORIES**: Directories to backup: paths without spaces in their name. Defaults to `/data-to-backup /data-to-backup2`.
 
-- **BACKUP_MANAGER_REPOSITORY**: Where to store the archives. Defaults to `/data/backup`.
-
 - **BACKUP_MANAGER_CRON_EXP**: Cron expression to schedule backup-manager execution. Defaults to `"0 4 * * *"`. Every days at 4am.
 
 - **BACKUP_MANAGER_TTL**: Backup TTL in days. Defaults to `15`.
