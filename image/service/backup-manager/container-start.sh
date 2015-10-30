@@ -14,7 +14,6 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   #
   # bootstrap config
   #
-  sed -i "s|{{ BACKUP_MANAGER_REPOSITORY }}|${BACKUP_MANAGER_REPOSITORY}|g" /etc/backup-manager.conf
   sed -i "s|{{ BACKUP_MANAGER_TTL }}|${BACKUP_MANAGER_TTL}|g" /etc/backup-manager.conf
   sed -i "s|{{ BACKUP_MANAGER_TARBALL_DIRECTORIES }}|${BACKUP_MANAGER_TARBALL_DIRECTORIES}|g" /etc/backup-manager.conf
   sed -i "s|{{ BACKUP_MANAGER_UPLOAD_METHOD }}|${BACKUP_MANAGER_UPLOAD_METHOD}|g" /etc/backup-manager.conf

@@ -26,5 +26,5 @@ RUN /container/tool/install-service \
 ADD env.yaml /container/environment/env.yaml
 
 # Set backup data in a data volume
-# Must match env var BACKUP_MANAGER_REPOSITORY
+# Must match env var BM_REPOSITORY_ROOT in backup-manager.conf
 VOLUME ["/data/backup"]
