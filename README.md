@@ -35,6 +35,7 @@ Upload configuration:
 
 - **BACKUP_MANAGER_UPLOAD_FTP_USER**: Ftp user. Defaults to `ftp-user`.
 - **BACKUP_MANAGER_UPLOAD_FTP_PASSWORD**: Ftp password. Defaults to `ftp-password`.
+- **BACKUP_MANAGER_UPLOAD_DESTINATION**: Upload to this ftp directory.  Defaults to `/`.
 - **BACKUP_MANAGER_UPLOAD_TTL**: Backup TTL on the ftp hosts in days. Defaults to `60`.
 
 Encryption configuration:
