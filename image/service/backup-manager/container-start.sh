@@ -9,7 +9,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   sed -i "s|{{ BACKUP_MANAGER_CRON_EXP }}|${BACKUP_MANAGER_CRON_EXP}|g" /container/service/backup-manager/assets/cronjobs
 
   echo "link /container/service/backup-manager/assets/backup-manager.conf to /etc/backup-manager.conf"
-  ln -s /container/service/backup-manager/assets/backup-manager.conf /etc/backup-manager.conf
+  ln -sf /container/service/backup-manager/assets/backup-manager.conf /etc/backup-manager.conf
 
   #
   # bootstrap config
@@ -20,6 +20,7 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   sed -i "s|{{ BACKUP_MANAGER_UPLOAD_HOSTS }}|${BACKUP_MANAGER_UPLOAD_HOSTS}|g" /etc/backup-manager.conf
   sed -i "s|{{ BACKUP_MANAGER_UPLOAD_FTP_USER }}|${BACKUP_MANAGER_UPLOAD_FTP_USER}|g" /etc/backup-manager.conf
   sed -i "s|{{ BACKUP_MANAGER_UPLOAD_FTP_PASSWORD }}|${BACKUP_MANAGER_UPLOAD_FTP_PASSWORD}|g" /etc/backup-manager.conf
+  sed -i "s|{{ BACKUP_MANAGER_UPLOAD_DESTINATION }}|${BACKUP_MANAGER_UPLOAD_DESTINATION}|g" /etc/backup-manager.conf
   sed -i "s|{{ BACKUP_MANAGER_UPLOAD_TTL }}|${BACKUP_MANAGER_UPLOAD_TTL}|g" /etc/backup-manager.conf
 
   # encryption
