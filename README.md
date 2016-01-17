@@ -118,16 +118,6 @@ Install Bats, and in this project directory run :
 
 	make test
 
-### Kubernetes
-
-Kubernetes is an open source system for managing containerized applications across multiple hosts, providing basic mechanisms for deployment, maintenance, and scaling of applications.
-
-More information:
-- http://kubernetes.io
-- https://github.com/kubernetes/kubernetes
-
-A kubernetes example is available in **example/kubernetes**
-
 ### Under the hood: osixia/light-baseimage
 
 This image is based on osixia/light-baseimage.
