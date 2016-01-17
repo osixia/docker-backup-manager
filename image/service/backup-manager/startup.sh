@@ -1,15 +1,23 @@
 #!/bin/bash -e
 
-FIRST_START_DONE="/etc/docker-backup-manager-first-start-done"
+# set -x (bash debug) if log level is trace
+# https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/log-helper
+log-helper level eq trace && set -x
+
+FIRST_START_DONE="${CONTAINER_STATE_DIR}/docker-backup-manager-first-start-done"
 
 # container first start
 if [ ! -e "$FIRST_START_DONE" ]; then
 
-  # adapt cronjobs file
-  sed -i --follow-symlinks "s|{{ BACKUP_MANAGER_CRON_EXP }}|${BACKUP_MANAGER_CRON_EXP}|g" /container/service/backup-manager/assets/cronjobs
+  # add cron jobs
+  ln -s ${CONTAINER_SERVICE_DIR}/backup-manager/assets/cronjobs /etc/cron.d/backup-manager
+  chmod 600 ${CONTAINER_SERVICE_DIR}/backup-manager/assets/cronjobs
 
-  echo "link /container/service/backup-manager/assets/backup-manager.conf to /etc/backup-manager.conf"
-  ln -sf /container/service/backup-manager/assets/backup-manager.conf /etc/backup-manager.conf
+  # adapt cronjobs file
+  sed -i "s|{{ BACKUP_MANAGER_CRON_EXP }}|${BACKUP_MANAGER_CRON_EXP}|g" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/cronjobs
+
+  log-helper info "Link ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf to /etc/backup-manager.conf ..."
+  ln -sf ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf /etc/backup-manager.conf
 
   #
   # bootstrap config
