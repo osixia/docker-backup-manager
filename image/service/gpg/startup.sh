@@ -1,12 +1,14 @@
 #!/bin/bash -e
-set -o pipefail
 
 # set -x (bash debug) if log level is trace
 # https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/log-helper
 log-helper level eq trace && set -x
 
-FIRST_START_DONE="${CONTAINER_STATE_DIR}/docker-gpg-first-start-done"
+[ -d ${CONTAINER_SERVICE_DIR}/gpg/assets/.data ] || mkdir -p ${CONTAINER_SERVICE_DIR}/gpg/assets/.data
+chmod 400 -R /container/service/gpg/assets/
+ln -sf ${CONTAINER_SERVICE_DIR}/gpg/assets/.data $HOME/.gnupg
 
+FIRST_START_DONE="${CONTAINER_STATE_DIR}/docker-gpg-first-start-done"
 # container first start
 if [ ! -e "$FIRST_START_DONE" ]; then
 

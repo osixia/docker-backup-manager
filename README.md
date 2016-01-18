@@ -9,7 +9,7 @@ An image to run periodicaly backup-manager.
     # Run Backup Manager image
     docker run --volume /host/data:/data-to-backup --detach osixia/backup-manager:0.1.4
 
-#### Backup directory and data persitance
+### Backup directory and data persitance
 
 Backups are created by default in the directory `/data/backup` that has been declared as a volume, so your backup files are saved outside the container in a data volume.
 
