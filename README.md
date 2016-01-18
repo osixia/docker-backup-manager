@@ -43,7 +43,7 @@ but setting your own backup-manager.conf is possible. 2 options:
 
 - Link your config file at run time to `/container/service/backup-manager/assets/backup-manager.conf` :
 
-      docker run --volume /data/my-backup-manager.conf:/container/service/backup-manager/assets/backup-manager.conf --detach osixia:backup-manager:0.1.4
+      docker run --volume /data/my-backup-manager.conf:/container/service/backup-manager/assets/backup-manager.conf --detach osixia/backup-manager:0.1.4
 
 - Add your config file by extending or cloning this image, please refer to the [Advanced User Guide](#advanced-user-guide)
 
