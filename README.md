@@ -4,6 +4,23 @@
 
 An image to run periodicaly backup-manager.
 
+- [Quick start](#quick-start)
+- [Beginner Guide](#beginner-guide)
+	- [Backup directory and data persitance](#backup-directory-and-data-persitance)
+	- [Use your own Backup Manager config](#use-your-own-backup-manager-config)
+	- [Debug](#debug)
+- [Environment Variables](#environment-variables)
+	- [Set your own environment variables](#set-your-own-environment-variables)
+		- [Use command line argument](#use-command-line-argument)
+		- [Link environment file](#link-environment-file)
+		- [Make your own image or extend this image](#make-your-own-image-or-extend-this-image)
+- [Advanced User Guide](#advanced-user-guide)
+	- [Extend osixia/backup-manager:0.1.4 image](#extend-osixiabackup-manager014-image)
+	- [Make your own backup-manager image](#make-your-own-backup-manager-image)
+	- [Tests](#tests)
+	- [Under the hood: osixia/light-baseimage](#under-the-hood-osixialight-baseimage)
+- [Changelog](#changelog)
+
 ## Quick start
 
     # Run Backup Manager image
