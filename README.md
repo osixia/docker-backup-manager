@@ -9,6 +9,8 @@ An image to run periodicaly backup-manager.
     # Run Backup Manager image
     docker run --volume /host/data:/data-to-backup --detach osixia/backup-manager:0.1.4
 
+## Beginner Guide
+
 ### Backup directory and data persitance
 
 Backups are created by default in the directory `/data/backup` that has been declared as a volume, so your backup files are saved outside the container in a data volume.
@@ -16,6 +18,30 @@ Backups are created by default in the directory `/data/backup` that has been dec
 For more information about docker data volume, please refer to :
 
 > [https://docs.docker.com/userguide/dockervolumes/](https://docs.docker.com/userguide/dockervolumes/)
+
+
+### Use your own Backup Manager config
+This image comes with a backup manager config file that can be easily customized via environment variables for a quick bootstrap,
+but setting your own backup-manager.conf is possible. 2 options:
+
+- Link your config file at run time to `/container/service/backup-manager/assets/backup-manager.conf` :
+
+      docker run -v /data/my-backup-manager.conf:/container/service/backup-manager/assets/backup-manager.conf --detach osixia:backup-manager:0.1.4
+
+- Add your config file by extending or cloning this image, please refer to the [Advanced User Guide](#advanced-user-guide)
+
+### Debug
+
+The container default log level is **info**.
+Available levels are: `none`, `error`, `warning`, `info`, `debug` and `trace`.
+
+Example command to run the container in `debug` mode:
+
+	docker run --detach osixia/backup-manager:0.1.4 --loglevel debug
+
+See all command line options:
+
+	docker run osixia/backup-manager:0.1.4 --help
 
 ## Environment Variables
 
@@ -82,6 +108,7 @@ Dockerfile example:
 
     ADD environment /container/environment/01-custom
     ADD gpg-keys /container/service/gpg/assets
+    ADD my-backup-manager.conf /container/service/backup-manager/assets/backup-manager.conf
 
 
 ### Make your own backup-manager image
@@ -99,6 +126,8 @@ Adapt Makefile, set your image NAME and VERSION, for example :
 	becomes :
 	NAME = billy-the-king/backup-manager
 	VERSION = 0.1.0
+
+Add your custom keys, environment files, config ...
 
 Build your image :
 
