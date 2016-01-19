@@ -6,7 +6,7 @@ An image to run periodicaly backup-manager.
 
 - [Quick start](#quick-start)
 - [Beginner Guide](#beginner-guide)
-	- [Backup directory and data persitance](#backup-directory-and-data-persitance)
+	- [Backup directory and data persistence](#backup-directory-and-data-persistence)
 	- [Use your own Backup Manager config](#use-your-own-backup-manager-config)
 	- [Debug](#debug)
 - [Environment Variables](#environment-variables)
@@ -28,7 +28,7 @@ An image to run periodicaly backup-manager.
 
 ## Beginner Guide
 
-### Backup directory and data persitance
+### Backup directory and data persistence
 
 Backups are created by default in the directory `/data/backup` that has been declared as a volume, so your backup files are saved outside the container in a data volume.
 
