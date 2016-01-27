@@ -1,25 +1,71 @@
 # osixia/backup-manager
 
-[![](https://badge.imagelayers.io/osixia/backup-manager:latest.svg)](https://imagelayers.io/?images=osixia/backup-manager:latest 'Get your own badge on imagelayers.io')
+[![](https://badge.imagelayers.io/osixia/backup-manager:latest.svg)](https://imagelayers.io/?images=osixia/backup-manager:latest 'Get your own badge on imagelayers.io') | Latest release: 0.1.4 -  [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/backup-manager/) 
 
-An image to execute periodicaly backup-manager.
+An image to run periodicaly backup-manager.
+
+- [Quick start](#quick-start)
+- [Beginner Guide](#beginner-guide)
+	- [Backup directory and data persistence](#backup-directory-and-data-persistence)
+	- [Use your own Backup Manager config](#use-your-own-backup-manager-config)
+	- [Debug](#debug)
+- [Environment Variables](#environment-variables)
+	- [Set your own environment variables](#set-your-own-environment-variables)
+		- [Use command line argument](#use-command-line-argument)
+		- [Link environment file](#link-environment-file)
+		- [Make your own image or extend this image](#make-your-own-image-or-extend-this-image)
+- [Advanced User Guide](#advanced-user-guide)
+	- [Extend osixia/backup-manager:0.1.4 image](#extend-osixiabackup-manager014-image)
+	- [Make your own backup-manager image](#make-your-own-backup-manager-image)
+	- [Tests](#tests)
+	- [Under the hood: osixia/light-baseimage](#under-the-hood-osixialight-baseimage)
+- [Changelog](#changelog)
 
 ## Quick start
 
     # Run Backup Manager image
-    docker run --volume /host/data:/data-to-backup -d osixia/backup-manager
+    docker run --volume /host/data:/data-to-backup --detach osixia/backup-manager:0.1.4
 
-#### Backup directory and data persitance
+## Beginner Guide
 
-Backups are created in the directory `/data/backup` by default that has been declared as a volume, so your backup files are saved outside the container in a data volume.
+### Backup directory and data persistence
+
+Backups are created by default in the directory `/data/backup` that has been declared as a volume, so your backup files are saved outside the container in a data volume.
 
 For more information about docker data volume, please refer to :
 
 > [https://docs.docker.com/userguide/dockervolumes/](https://docs.docker.com/userguide/dockervolumes/)
 
+
+### Use your own Backup Manager config
+This image comes with a backup manager config file that can be easily customized via environment variables for a quick bootstrap,
+but setting your own backup-manager.conf is possible. 2 options:
+
+- Link your config file at run time to `/container/service/backup-manager/assets/backup-manager.conf` :
+
+      docker run --volume /data/my-backup-manager.conf:/container/service/backup-manager/assets/backup-manager.conf --detach osixia/backup-manager:0.1.4
+
+- Add your config file by extending or cloning this image, please refer to the [Advanced User Guide](#advanced-user-guide)
+
+### Debug
+
+The container default log level is **info**.
+Available levels are: `none`, `error`, `warning`, `info`, `debug` and `trace`.
+
+Example command to run the container in `debug` mode:
+
+	docker run --detach osixia/backup-manager:0.1.4 --loglevel debug
+
+See all command line options:
+
+	docker run osixia/backup-manager:0.1.4 --help
+
 ## Environment Variables
 
-Environement variables defaults are set in **image/env.yaml**. You can modify environment variable values directly in this file and rebuild the image ([see manual build](#manual-build)). You can also override those values at run time with -e argument or by setting your own env.yaml file as a docker volume to `/container/environment/env.yaml`. See examples below.
+Environment variables defaults are set in **image/environment/default.yaml**
+
+See how to [set your own environment variables](#set-your-own-environment-variables)
+
 
 - **BACKUP_MANAGER_TARBALL_DIRECTORIES**: Directories to backup: paths without spaces in their name. Defaults to `/data-to-backup /data-to-backup2`.
 
@@ -45,19 +91,44 @@ Encryption configuration:
 
 More help: https://raw.githubusercontent.com/sukria/Backup-Manager/master/doc/user-guide.txt
 
+### Set your own environment variables
 
-### Set environment variables at run time :
+#### Use command line argument
+Environment variables can be set by adding the --env argument in the command line, for example:
 
-Environment variable can be set directly by adding the -e argument in the command line, for example :
+	docker run --env BACKUP_MANAGER_TARBALL_DIRECTORIES="/home/billy" \
+	--detach osixia/backup-manager:0.1.4
 
-	docker run -e BACKUP_MANAGER_TARBALL_DIRECTORIES="/home/billy" -d osixia/backup-manager
+#### Link environment file
 
-Or by setting your own `env.yaml` file as a docker volume to `/container/environment/env.yaml`
+For example if your environment file is in :  /data/backup-manager/environment/my-env.yaml
 
-	docker run -v /data/my-env.yaml:/container/environment/env.yaml \
-	-d osixia/backup-manager
+	docker run --volume /data/backup-manager/environment/my-env.yaml:/container/environment/01-custom/env.yaml \
+	--detach osixia/backup-manager:0.1.4
 
-## Manual build
+Take care to link your environment file to `/container/environment/XX-somedir` (with XX < 99 so they will be processed before default environment files) and not  directly to `/container/environment` because this directory contains predefined baseimage environment files to fix container environment (INITRD, LANG, LANGUAGE and LC_CTYPE).
+
+#### Make your own image or extend this image
+
+This is the best solution if you have a private registry. Please refer to the [Advanced User Guide](#advanced-user-guide) just below.
+
+## Advanced User Guide
+
+### Extend osixia/backup-manager:0.1.4 image
+
+If you need to add your custom TLS certificate, bootstrap config or environment files the easiest way is to extends this image.
+
+Dockerfile example:
+
+    FROM osixia/backup-manager:0.1.4
+    MAINTAINER Your Name <your@name.com>
+
+    ADD environment /container/environment/01-custom
+    ADD gpg-keys /container/service/gpg/assets
+    ADD my-backup-manager.conf /container/service/backup-manager/assets/backup-manager.conf
+
+
+### Make your own backup-manager image
 
 Clone this project :
 
@@ -67,11 +138,13 @@ Clone this project :
 Adapt Makefile, set your image NAME and VERSION, for example :
 
 	NAME = osixia/backup-manager
-	VERSION = 0.1.0
+	VERSION = 0.1.4
 
 	becomes :
 	NAME = billy-the-king/backup-manager
 	VERSION = 0.1.0
+
+Add your custom keys, environment files, config ...
 
 Build your image :
 
@@ -81,7 +154,7 @@ Run your image :
 
 	docker run -d billy-the-king/backup-manager:0.1.0
 
-## Tests
+### Tests
 
 We use **Bats** (Bash Automated Testing System) to test this image:
 
@@ -90,3 +163,12 @@ We use **Bats** (Bash Automated Testing System) to test this image:
 Install Bats, and in this project directory run :
 
 	make test
+
+### Under the hood: osixia/light-baseimage
+
+This image is based on osixia/light-baseimage.
+More info: https://github.com/osixia/docker-light-baseimage
+
+## Changelog
+
+Please refer to: [CHANGELOG.md](CHANGELOG.md)

@@ -1,17 +1,16 @@
-FROM osixia/light-baseimage:0.1.5
+# Use osixia/light-baseimage
+# sources: https://github.com/osixia/docker-light-baseimage
+FROM osixia/light-baseimage:0.2.1
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
-# Use baseimage's init system.
-# https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/run
-CMD ["/container/tool/run"]
-
-# Use baseimage remove-service tool to remove slapd service
-# including process and container start files
+# Install Backup Manager, GNUPG for encryption and cron from baseimage
+# sources: https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/add-service-available
+#          https://github.com/osixia/docker-light-baseimage/blob/stable/image/service-available/:cron/download.sh
 RUN apt-get -y update \
+		&& /container/tool/add-service-available :cron \
 		&& LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
-			backup-manager gnupg \
-		&& /container/tool/install-service-available cron \
-		&& rm -f /etc/backup-manager.conf
+			 backup-manager \
+			 gnupg
 
 # Add service directory to /container/service
 ADD service /container/service
@@ -23,7 +22,7 @@ RUN /container/tool/install-service \
     && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add default env variables
-ADD env.yaml /container/environment/env.yaml
+ADD environment /container/environment/99-default
 
 # Set backup data in a data volume
 # Must match env var BM_REPOSITORY_ROOT in backup-manager.conf
