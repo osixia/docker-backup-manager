@@ -1,5 +1,5 @@
 NAME = osixia/backup-manager
-VERSION = 0.1.4
+VERSION = 0.1.5
 
 .PHONY: all build build-nocache test tag_latest release
 
