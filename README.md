@@ -1,8 +1,16 @@
 # osixia/backup-manager
 
-[![](https://badge.imagelayers.io/osixia/backup-manager:latest.svg)](https://imagelayers.io/?images=osixia/backup-manager:latest 'Get your own badge on imagelayers.io') | Latest release: 0.1.5 -  [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/backup-manager/) 
+[![Docker Pulls](https://img.shields.io/docker/pulls/osixia/backup-manager.svg)][hub]
+[![Docker Stars](https://img.shields.io/docker/stars/osixia/backup-manager.svg)][hub]
+[![Image Size](https://img.shields.io/imagelayers/image-size/osixia/backup-manager/latest.svg)](https://imagelayers.io/?images=osixia/backup-manager:latest)
+[![Image Layers](https://img.shields.io/imagelayers/layers/osixia/backup-manager/latest.svg)](https://imagelayers.io/?images=osixia/backup-manager:latest)
 
-An image to run periodicaly backup-manager.
+[hub]: https://hub.docker.com/r/osixia/backup-manager/
+
+Latest release: 0.1.5 -  [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/backup-manager/) 
+
+An image to run periodically backup-manager.
+
 
 - [Quick start](#quick-start)
 - [Beginner Guide](#beginner-guide)
