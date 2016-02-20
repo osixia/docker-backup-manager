@@ -4,9 +4,9 @@
 # https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/log-helper
 log-helper level eq trace && set -x
 
-[ -d ${CONTAINER_SERVICE_DIR}/gpg/assets/.data ] || mkdir -p ${CONTAINER_SERVICE_DIR}/gpg/assets/.data
+[ -d ${CONTAINER_SERVICE_DIR}/gpg/.data ] || mkdir -p ${CONTAINER_SERVICE_DIR}/gpg/.data
 chmod 400 -R ${CONTAINER_SERVICE_DIR}/gpg/assets/
-ln -sf ${CONTAINER_SERVICE_DIR}/gpg/assets/.data $HOME/.gnupg
+ln -sf ${CONTAINER_SERVICE_DIR}/gpg/.data $HOME/.gnupg
 
 FIRST_START_DONE="${CONTAINER_STATE_DIR}/docker-gpg-first-start-done"
 # container first start
