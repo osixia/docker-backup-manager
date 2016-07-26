@@ -7,7 +7,7 @@
 
 [hub]: https://hub.docker.com/r/osixia/backup-manager/
 
-Latest release: 0.1.6 -  [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/backup-manager/) 
+Latest release: 0.1.6 - Backup Manager 0.7.10.1 - [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/backup-manager/) 
 
 An image to run periodically backup-manager.
 
