@@ -2,8 +2,6 @@
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/osixia/backup-manager.svg)][hub]
 [![Docker Stars](https://img.shields.io/docker/stars/osixia/backup-manager.svg)][hub]
-[![Image Size](https://img.shields.io/imagelayers/image-size/osixia/backup-manager/latest.svg)](https://imagelayers.io/?images=osixia/backup-manager:latest)
-[![Image Layers](https://img.shields.io/imagelayers/layers/osixia/backup-manager/latest.svg)](https://imagelayers.io/?images=osixia/backup-manager:latest)
 
 [hub]: https://hub.docker.com/r/osixia/backup-manager/
 
