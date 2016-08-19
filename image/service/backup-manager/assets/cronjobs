@@ -1,2 +1,2 @@
-# Backup OpenLDAP config
+# Backup 
 {{ BACKUP_MANAGER_CRON_EXP }} root /usr/sbin/backup-manager 2>&1 | /usr/bin/logger -s -t backup-manager
