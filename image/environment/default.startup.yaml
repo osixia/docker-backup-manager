@@ -1,8 +1,8 @@
 # Directories to backup: paths without spaces in their name
-BACKUP_MANAGER_TARBALL_DIRECTORIES: "/data-to-backup /data-to-backup2"
+BACKUP_MANAGER_TARBALL_DIRECTORIES: /data-to-backup /data-to-backup2
 
 # Run backup-manager at 4:00am
-BACKUP_MANAGER_CRON_EXP: "0 4 * * *"
+BACKUP_MANAGER_CRON_EXP: 0 4 * * *
 
 # Delete backups that are over 15 days
 BACKUP_MANAGER_TTL: 15
