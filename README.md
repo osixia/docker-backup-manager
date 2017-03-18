@@ -2,13 +2,14 @@
 
 [![Docker Pulls](https://img.shields.io/docker/pulls/osixia/backup-manager.svg)][hub]
 [![Docker Stars](https://img.shields.io/docker/stars/osixia/backup-manager.svg)][hub]
+[![](https://images.microbadger.com/badges/image/osixia/backup-manager.svg)](http://microbadger.com/images/osixia/backup-manager "Get your own image badge on microbadger.com")
 
 [hub]: https://hub.docker.com/r/osixia/backup-manager/
 
 Latest release: 0.1.8 - Backup Manager 0.7.10.1 - [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/backup-manager/) 
 
-An image to run periodically backup-manager.
-
+**A docker image to run periodically backup-manager.**
+> https://github.com/sukria/Backup-Manager
 
 - [Quick start](#quick-start)
 - [Beginner Guide](#beginner-guide)
