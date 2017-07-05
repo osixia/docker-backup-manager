@@ -8,7 +8,7 @@ MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 #          https://github.com/osixia/docker-light-baseimage/blob/stable/image/service-available/:cron/download.sh
 RUN apt-get -y update \
 		&& /container/tool/add-service-available :cron \
-		&& LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --force-yes --no-install-recommends \
+		&& LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 			 backup-manager \
 			 gnupg \
 		&& apt-get clean \
