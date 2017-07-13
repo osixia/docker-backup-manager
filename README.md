@@ -82,6 +82,7 @@ Environment variables defaults are set in **image/environment/default.yaml**
 
 See how to [set your own environment variables](#set-your-own-environment-variables)
 
+- **BACKUP_MANAGER_ARCHIVE_METHOD**: Archive method, this image allows you to set **tarball** or **tarball-incremental** methods with the following environment variables but all Backup Manager environment variables (starting by *BM_**) can also be set to configure any method you need. Defaults to `tarball`.
 
 - **BACKUP_MANAGER_TARBALL_DIRECTORIES**: Directories to backup: paths without spaces in their name. Defaults to `/data-to-backup /data-to-backup2`.
 
@@ -104,6 +105,19 @@ Encryption configuration:
 
 - **BACKUP_MANAGER_ENCRYPTION**: Encrypt backups. Defaults to `false`.
 - **BACKUP_MANAGER_ENCRYPTION_RECIPIENT**: GPG recipient. Defaults to `Mike Ross`.
+
+Incremental tarball configuration:
+- **BACKUP_MANAGER_TARBALLINC_MASTERDATETYPE**: Which frequency to use for the master tarball? possible values: weekly, monthly. Defaults to `weekly`.
+
+- **BACKUP_MANAGER_TARBALLINC_MASTERDATEVALUE**: Number of the day, in the BACKUP_MANAGER_TARBALLINC_MASTERDATETYPE frequency when master tarballs should be made. Defaults to `1`.
+
+	Examples: you want to make master tarballs every friday:
+	BACKUP_MANAGER_TARBALLINC_MASTERDATETYPE="weekly"
+	BACKUP_MANAGER_TARBALLINC_MASTERDATEVALUE="5"
+
+	Or every first day of the month:
+	BACKUP_MANAGER_TARBALLINC_MASTERDATETYPE="monthly"
+	BACKUP_MANAGER_TARBALLINC_MASTERDATEVALUE="1"
 
 More help: https://raw.githubusercontent.com/sukria/Backup-Manager/master/doc/user-guide.txt
 

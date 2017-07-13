@@ -1,6 +1,7 @@
 # Changelog
 
 ## 0.2.0
+  - Add incremental tarball support
   - Backup Manager 0.7.12.4
   - Upgrade baseimage: light-baseimage:1.1.0 (debian stretch)
 

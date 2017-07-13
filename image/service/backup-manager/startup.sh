@@ -22,6 +22,9 @@ if [ ! -e "$FIRST_START_DONE" ]; then
   sed -i "s|{{ BACKUP_MANAGER_UPLOAD_FTP_PASSWORD }}|${BACKUP_MANAGER_UPLOAD_FTP_PASSWORD}|g" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
   sed -i "s|{{ BACKUP_MANAGER_UPLOAD_DESTINATION }}|${BACKUP_MANAGER_UPLOAD_DESTINATION}|g" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
   sed -i "s|{{ BACKUP_MANAGER_UPLOAD_TTL }}|${BACKUP_MANAGER_UPLOAD_TTL}|g" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
+  sed -i "s|{{ BACKUP_MANAGER_ARCHIVE_METHOD }}|${BACKUP_MANAGER_ARCHIVE_METHOD}|g" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
+  sed -i "s|{{ BACKUP_MANAGER_TARBALLINC_MASTERDATETYPE }}|${BACKUP_MANAGER_TARBALLINC_MASTERDATETYPE}|g" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
+  sed -i "s|{{ BACKUP_MANAGER_TARBALLINC_MASTERDATEVALUE }}|${BACKUP_MANAGER_TARBALLINC_MASTERDATEVALUE}|g" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
 
   # encryption
   if [ "${BACKUP_MANAGER_ENCRYPTION,,}" == "true" ]; then
