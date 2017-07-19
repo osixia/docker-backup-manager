@@ -5,8 +5,10 @@
 log-helper level eq trace && set -x
 
 [ -d ${CONTAINER_SERVICE_DIR}/gpg/.data ] || mkdir -p ${CONTAINER_SERVICE_DIR}/gpg/.data
-chmod 400 -R ${CONTAINER_SERVICE_DIR}/gpg/assets/
 ln -sf ${CONTAINER_SERVICE_DIR}/gpg/.data $HOME/.gnupg
+
+chmod 400 -R ${CONTAINER_SERVICE_DIR}/gpg/assets/
+chmod 400 ${HOME}/.gnupg
 
 FIRST_START_DONE="${CONTAINER_STATE_DIR}/docker-gpg-first-start-done"
 # container first start
@@ -28,7 +30,8 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     # add recipient key to trusted keys
     log-helper debug "Recipient key : ${BACKUP_MANAGER_ENCRYPTION_RECIPIENT}"
     TRUST_VALUE=':6:'
-    TRUSTVAR=`gpg --fingerprint ${BACKUP_MANAGER_ENCRYPTION_RECIPIENT}|grep Key|cut -d= -f2|sed 's/ //g'`
+
+    TRUSTVAR=`gpg --with-colons --fingerprint ${BACKUP_MANAGER_ENCRYPTION_RECIPIENT} | awk -F: '$1 == "fpr" {print $10;}' | head -1`
 
     if [ -z "$TRUSTVAR" ]; then
       log-helper error "Error: gpg key ${BACKUP_MANAGER_ENCRYPTION_RECIPIENT} not found"

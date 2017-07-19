@@ -1,4 +1,9 @@
 # Directories to backup: paths without spaces in their name
+# This image allows you to set up, tarball or tarball-incremental method
+# but other methods can be used and configured by setting directly backup manager
+# envirnonment variables BM_*
+BACKUP_MANAGER_ARCHIVE_METHOD: tarball
+
 BACKUP_MANAGER_TARBALL_DIRECTORIES: /data-to-backup /data-to-backup2
 
 # Run backup-manager at 4:00am
@@ -18,3 +23,12 @@ BACKUP_MANAGER_UPLOAD_TTL: 60 # Delete backups on the ftp that are over 60 days
 # Encryption, disabled if empty
 BACKUP_MANAGER_ENCRYPTION: false
 BACKUP_MANAGER_ENCRYPTION_RECIPIENT: Mike Ross
+
+#
+# tarball-incremental specific options:
+#
+# Which frequency to use for the master tarball? possible values: weekly, monthly
+BACKUP_MANAGER_TARBALLINC_MASTERDATETYPE: weekly
+
+# Number of the day, in the BACKUP_MANAGER_TARBALLINC_MASTERDATETYPE frequency when master tarballs should be made
+BACKUP_MANAGER_TARBALLINC_MASTERDATEVALUE: 1
