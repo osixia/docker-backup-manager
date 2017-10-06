@@ -11,6 +11,8 @@ RUN apt-get -y update \
 		&& LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 			 backup-manager \
 			 gnupg \
+			 openssh-client \
+			 libnet-amazon-s3-perl \
 		&& apt-get clean \
 		&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
