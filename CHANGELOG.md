@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.2.1
+  - Add openssh-client and libnet-amazon-s3-perl
+  - Upgrade baseimage: light-baseimage:1.1.1
+
 ## 0.2.0
   - Add incremental tarball support
   - Backup Manager 0.7.12.4
