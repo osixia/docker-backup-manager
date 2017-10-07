@@ -1,6 +1,6 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/light-baseimage:1.1.0
+FROM osixia/light-baseimage:1.1.1
 MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
 
 # Install Backup Manager, GNUPG for encryption and cron from baseimage
@@ -11,6 +11,8 @@ RUN apt-get -y update \
 		&& LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
 			 backup-manager \
 			 gnupg \
+			 openssh-client \
+			 libnet-amazon-s3-perl \
 		&& apt-get clean \
 		&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
