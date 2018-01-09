@@ -13,6 +13,7 @@ RUN apt-get -y update \
 			 gnupg \
 			 openssh-client \
 			 libnet-amazon-s3-perl \
+			 mysql-client \
 		&& apt-get clean \
 		&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
