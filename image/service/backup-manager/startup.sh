@@ -34,6 +34,37 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     sed -i "s|{{ BACKUP_MANAGER_ENCRYPTION_RECIPIENT }}|${BACKUP_MANAGER_ENCRYPTION_RECIPIENT}|g" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
   fi
 
+
+  i=0
+  BACKUP_MANAGER_PIPE_COMMAND="BACKUP_MANAGER_PIPE_COMMAND_${i}";
+  while [ -n "${!BACKUP_MANAGER_PIPE_COMMAND}" ]; do
+    sed -ie "/^# BACKUP MANAGER COMMAND PIPE DATA/i BM_PIPE_COMMAND[$i]=\"${!BACKUP_MANAGER_PIPE_COMMAND}\"" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
+
+    BACKUP_MANAGER_PIPE_NAME="BACKUP_MANAGER_PIPE_NAME_$i"
+    if [ -n "${!BACKUP_MANAGER_PIPE_NAME}" ]; then
+      sed -ie "/^# BACKUP MANAGER COMMAND PIPE DATA/i BM_PIPE_NAME[$i]=\"${!BACKUP_MANAGER_PIPE_NAME}\"" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
+    else
+      sed -ie "/^# BACKUP MANAGER COMMAND PIPE DATA/i BM_PIPE_NAME[$i]=\"\"" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
+    fi
+
+    BACKUP_MANAGER_PIPE_FILETYPE="BACKUP_MANAGER_PIPE_FILETYPE_$i"
+    if [ -n "${!BACKUP_MANAGER_PIPE_FILETYPE}" ]; then
+      sed -ie "/^# BACKUP MANAGER COMMAND PIPE DATA/i BM_PIPE_FILETYPE[$i]=\"${!BACKUP_MANAGER_PIPE_FILETYPE}\"" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
+    else
+      sed -ie "/^# BACKUP MANAGER COMMAND PIPE DATA/i BM_PIPE_FILETYPE[$i]=\"\"" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
+    fi
+
+    BACKUP_MANAGER_PIPE_COMPRESS="BACKUP_MANAGER_PIPE_COMPRESS_$i"
+    if [ -n "${!BACKUP_MANAGER_PIPE_COMPRESS}" ]; then
+      sed -ie "/^# BACKUP MANAGER COMMAND PIPE DATA/i BM_PIPE_COMPRESS[$i]=\"${!BACKUP_MANAGER_PIPE_COMPRESS}\"" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
+    else
+      sed -ie "/^# BACKUP MANAGER COMMAND PIPE DATA/i BM_PIPE_COMPRESS[$i]=\"\"" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
+    fi
+
+    i=$((i+1))
+    BACKUP_MANAGER_PIPE_COMMAND="BACKUP_MANAGER_PIPE_COMMAND_${i}";
+  done
+
   touch $FIRST_START_DONE
 fi
 

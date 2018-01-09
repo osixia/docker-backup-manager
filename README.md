@@ -119,6 +119,24 @@ Incremental tarball configuration:
 	BACKUP_MANAGER_TARBALLINC_MASTERDATETYPE="monthly"
 	BACKUP_MANAGER_TARBALLINC_MASTERDATEVALUE="1"
 
+Pipe configuration:
+- **BACKUP_MANAGER_PIPE_COMMAND_0**: Command
+- **BACKUP_MANAGER_PIPE_NAME_0**: Name of command (no mandatory, empty if not set)
+- **BACKUP_MANAGER_PIPE_FILETYPE_0**: File type of pipe command (no mandatory, empty if not set)
+- **BACKUP_MANAGER_PIPE_COMPRESS_0**: Compress type (no mandatory, empty if not set)
+
+You can add **BACKUP_MANAGER_PIPE_COMMAND_1**, **BACKUP_MANAGER_PIPE_COMMAND_2**... to implement other pipe command.
+
+    Examples: Archive a remote MySQL database through SSH:
+    BACKUP_MANAGER_PIPE_COMMAND_0: ssh host -c \\"mysqldump -ufoo -pbar base\\"
+    BACKUP_MANAGER_PIPE_NAME_0: base
+    BACKUP_MANAGER_PIPE_FILETYPE_0: sql
+    BACKUP_MANAGER_PIPE_COMPRESS_0: gzip
+    Archive a specific directory, on a remote server through SSH:
+    BACKUP_MANAGER_PIPE_COMMAND_1: ssh host -c \\"tar -c -z /home/user\\"
+    BACKUP_MANAGER_PIPE_NAME_1: host.home.user
+    BACKUP_MANAGER_PIPE_FILETYPE_1: tar.gz
+
 More help: https://raw.githubusercontent.com/sukria/Backup-Manager/master/doc/user-guide.txt
 
 ### Set your own environment variables
