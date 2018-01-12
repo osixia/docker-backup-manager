@@ -32,3 +32,13 @@ BACKUP_MANAGER_TARBALLINC_MASTERDATETYPE: weekly
 
 # Number of the day, in the BACKUP_MANAGER_TARBALLINC_MASTERDATETYPE frequency when master tarballs should be made
 BACKUP_MANAGER_TARBALLINC_MASTERDATEVALUE: 1
+
+# pipe command
+#BACKUP_MANAGER_PIPE_COMMAND_0: ssh host -c \\"mysqldump -ufoo -pbar base\\"
+#BACKUP_MANAGER_PIPE_NAME_0: base
+#BACKUP_MANAGER_PIPE_FILETYPE_0: sql
+#BACKUP_MANAGER_PIPE_COMPRESS_0: gzip
+#
+#BACKUP_MANAGER_PIPE_COMMAND_1: ssh host -c \\"tar -c -z /home/user\\"
+#BACKUP_MANAGER_PIPE_NAME_1: host.home.user
+#BACKUP_MANAGER_PIPE_FILETYPE_1: tar.gz
