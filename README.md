@@ -6,34 +6,35 @@
 
 [hub]: https://hub.docker.com/r/osixia/backup-manager/
 
-Latest release: 0.3.0 - Backup Manager 0.7.12.4 - [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/backup-manager/) 
+Latest release: 0.4.0 - Backup Manager 0.7.14 - [Changelog](CHANGELOG.md) | [Docker Hub](https://hub.docker.com/r/osixia/backup-manager/) 
 
 **A docker image to run periodically backup-manager.**
 > https://github.com/sukria/Backup-Manager
 
-- [Quick start](#quick-start)
-- [Beginner Guide](#beginner-guide)
-	- [Backup directory and data persistence](#backup-directory-and-data-persistence)
-	- [Use your own Backup Manager config](#use-your-own-backup-manager-config)
-	- [Fix docker mounted file problems](#fix-docker-mounted-file-problems)
-	- [Debug](#debug)
-- [Environment Variables](#environment-variables)
-	- [Set your own environment variables](#set-your-own-environment-variables)
-		- [Use command line argument](#use-command-line-argument)
-		- [Link environment file](#link-environment-file)
-		- [Make your own image or extend this image](#make-your-own-image-or-extend-this-image)
-- [Advanced User Guide](#advanced-user-guide)
-	- [Extend osixia/backup-manager:0.3.0 image](#extend-osixiabackup-manager030-image)
-	- [Make your own backup-manager image](#make-your-own-backup-manager-image)
-	- [Tests](#tests)
-	- [Under the hood: osixia/light-baseimage](#under-the-hood-osixialight-baseimage)
-- [Security](#security)
-- [Changelog](#changelog)
+- [osixia/backup-manager](#osixiabackup-manager)
+	- [Quick start](#quick-start)
+	- [Beginner Guide](#beginner-guide)
+		- [Backup directory and data persistence](#backup-directory-and-data-persistence)
+		- [Use your own Backup Manager config](#use-your-own-backup-manager-config)
+		- [Fix docker mounted file problems](#fix-docker-mounted-file-problems)
+		- [Debug](#debug)
+	- [Environment Variables](#environment-variables)
+		- [Set your own environment variables](#set-your-own-environment-variables)
+			- [Use command line argument](#use-command-line-argument)
+			- [Link environment file](#link-environment-file)
+			- [Make your own image or extend this image](#make-your-own-image-or-extend-this-image)
+	- [Advanced User Guide](#advanced-user-guide)
+		- [Extend osixia/backup-manager:0.4.0 image](#extend-osixiabackup-manager040-image)
+		- [Make your own backup-manager image](#make-your-own-backup-manager-image)
+		- [Tests](#tests)
+		- [Under the hood: osixia/light-baseimage](#under-the-hood-osixialight-baseimage)
+	- [Security](#security)
+	- [Changelog](#changelog)
 
 ## Quick start
 
     # Run Backup Manager image
-    docker run --volume /host/data:/data-to-backup --detach osixia/backup-manager:0.3.0
+    docker run --volume /host/data:/data-to-backup --detach osixia/backup-manager:0.4.0
 
 ## Beginner Guide
 
@@ -52,7 +53,7 @@ but setting your own backup-manager.conf is possible. 2 options:
 
 - Link your config file at run time to `/container/service/backup-manager/assets/backup-manager.conf` :
 
-      docker run --volume /data/my-backup-manager.conf:/container/service/backup-manager/assets/backup-manager.conf --detach osixia/backup-manager:0.3.0
+      docker run --volume /data/my-backup-manager.conf:/container/service/backup-manager/assets/backup-manager.conf --detach osixia/backup-manager:0.4.0
 
 - Add your config file by extending or cloning this image, please refer to the [Advanced User Guide](#advanced-user-guide)
 
@@ -62,7 +63,7 @@ You may have some problems with mounted files on some systems. The startup scrip
 
 To fix that run the container with `--copy-service` argument :
 
-		docker run [your options] osixia/backup-manager:0.3.0 --copy-service
+		docker run [your options] osixia/backup-manager:0.4.0 --copy-service
 
 ### Debug
 
@@ -71,11 +72,11 @@ Available levels are: `none`, `error`, `warning`, `info`, `debug` and `trace`.
 
 Example command to run the container in `debug` mode:
 
-	docker run --detach osixia/backup-manager:0.3.0 --loglevel debug
+	docker run --detach osixia/backup-manager:0.4.0 --loglevel debug
 
 See all command line options:
 
-	docker run osixia/backup-manager:0.3.0 --help
+	docker run osixia/backup-manager:0.4.0 --help
 
 ## Environment Variables
 
@@ -146,14 +147,14 @@ More help: https://raw.githubusercontent.com/sukria/Backup-Manager/master/doc/us
 Environment variables can be set by adding the --env argument in the command line, for example:
 
 	docker run --env BACKUP_MANAGER_TARBALL_DIRECTORIES="/home/billy" \
-	--detach osixia/backup-manager:0.3.0
+	--detach osixia/backup-manager:0.4.0
 
 #### Link environment file
 
 For example if your environment file is in :  /data/backup-manager/environment/my-env.yaml
 
 	docker run --volume /data/backup-manager/environment/my-env.yaml:/container/environment/01-custom/env.yaml \
-	--detach osixia/backup-manager:0.3.0
+	--detach osixia/backup-manager:0.4.0
 
 Take care to link your environment file to `/container/environment/XX-somedir` (with XX < 99 so they will be processed before default environment files) and not  directly to `/container/environment` because this directory contains predefined baseimage environment files to fix container environment (INITRD, LANG, LANGUAGE and LC_CTYPE).
 
@@ -163,13 +164,13 @@ This is the best solution if you have a private registry. Please refer to the [A
 
 ## Advanced User Guide
 
-### Extend osixia/backup-manager:0.3.0 image
+### Extend osixia/backup-manager:0.4.0 image
 
 If you need to add your custom TLS certificate, bootstrap config or environment files the easiest way is to extends this image.
 
 Dockerfile example:
 
-    FROM osixia/backup-manager:0.3.0
+    FROM osixia/backup-manager:0.4.0
     MAINTAINER Your Name <your@name.com>
 
     ADD environment /container/environment/01-custom

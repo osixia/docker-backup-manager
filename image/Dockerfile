@@ -1,21 +1,20 @@
 # Use osixia/light-baseimage
 # sources: https://github.com/osixia/docker-light-baseimage
-FROM osixia/light-baseimage:1.1.1
-MAINTAINER Bertrand Gouny <bertrand.gouny@osixia.net>
+FROM osixia/light-baseimage:release-1.2.0-dev
 
 # Install Backup Manager, GNUPG for encryption and cron from baseimage
 # sources: https://github.com/osixia/docker-light-baseimage/blob/stable/image/tool/add-service-available
 #          https://github.com/osixia/docker-light-baseimage/blob/stable/image/service-available/:cron/download.sh
 RUN apt-get -y update \
-		&& /container/tool/add-service-available :cron \
-		&& LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
-			 backup-manager \
-			 gnupg \
-			 openssh-client \
-			 libnet-amazon-s3-perl \
-			 mysql-client \
-		&& apt-get clean \
-		&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+	&& /container/tool/add-multiple-process-stack \
+	&& LC_ALL=C DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+	backup-manager \
+	gnupg \
+	openssh-client \
+	libnet-amazon-s3-perl \
+	default-mysql-client \
+	&& apt-get clean \
+	&& rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Add service directory to /container/service
 ADD service /container/service
