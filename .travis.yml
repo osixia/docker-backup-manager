@@ -47,9 +47,6 @@ before_script:
   # Set baseimage.
   # remove pqchecker if arch is not amd64
   - sed -i -e "s/FROM \(.*\)/FROM \1-${TARGET_ARCH}/g" image/Dockerfile;
-  - if [[ "${TARGET_ARCH}" != 'amd64' ]]; then
-    sed -i -e "/PQCHECKER/Id" image/Dockerfile;
-    fi
   - cat image/Dockerfile;
   # If this is a tag then change the VERSION variable to only have the
   # tag name and not also the commit hash.
@@ -74,7 +71,6 @@ before_deploy:
 deploy:
   provider: script
   on:
-    repo: osixia/openldap
     all_branches: true
   script: make push NAME=${NAME} VERSION=${VERSION}-${TARGET_ARCH}
 
