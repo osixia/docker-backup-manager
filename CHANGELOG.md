@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
   - Upgrade Backup Manager version to 0.7.14
   - Upgrade baseimage to light-baseimage:1.2.0 (debian buster)
+  - make cron job log with /usr/bin/logger -t backup-manager
 
 ## [0.3.0] - 2018-01-12
 ### Added
