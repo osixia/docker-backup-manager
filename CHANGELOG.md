@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
   - Multiarch support
   - syslog for logging
+  - BACKUP_MANAGER_LOGGER_LEVEL environment variable
 
 ### Changed
   - Upgrade Backup Manager version to 0.7.14

@@ -65,6 +65,8 @@ if [ ! -e "$FIRST_START_DONE" ]; then
     BACKUP_MANAGER_PIPE_COMMAND="BACKUP_MANAGER_PIPE_COMMAND_${i}";
   done
 
+  sed -i "s|{{ BACKUP_MANAGER_LOGGER_LEVEL }}|${BACKUP_MANAGER_LOGGER_LEVEL}|g" ${CONTAINER_SERVICE_DIR}/backup-manager/assets/backup-manager.conf
+
   touch $FIRST_START_DONE
 fi
 

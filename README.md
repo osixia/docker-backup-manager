@@ -139,6 +139,9 @@ You can add **BACKUP_MANAGER_PIPE_COMMAND_1**, **BACKUP_MANAGER_PIPE_COMMAND_2**
     BACKUP_MANAGER_PIPE_NAME_1: host.home.user
     BACKUP_MANAGER_PIPE_FILETYPE_1: tar.gz
 
+Other environment variables:
+- **BACKUP_MANAGER_LOGGER_LEVEL**:  Log level possible values: debug,info,warning,error. Defaults to `info`.
+
 More help: https://raw.githubusercontent.com/sukria/Backup-Manager/master/doc/user-guide.txt
 
 ### Set your own environment variables

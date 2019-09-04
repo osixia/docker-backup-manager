@@ -42,3 +42,6 @@ BACKUP_MANAGER_TARBALLINC_MASTERDATEVALUE: 1
 #BACKUP_MANAGER_PIPE_COMMAND_1: ssh host -c \\"tar -c -z /home/user\\"
 #BACKUP_MANAGER_PIPE_NAME_1: host.home.user
 #BACKUP_MANAGER_PIPE_FILETYPE_1: tar.gz
+
+# possible values are : debug,info,warning,error
+BACKUP_MANAGER_LOGGER_LEVEL: "info"
