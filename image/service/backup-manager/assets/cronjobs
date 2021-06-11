@@ -1,3 +1,3 @@
 # Backup
-{{ BACKUP_MANAGER_CRON_EXP }} root /usr/sbin/backup-manager > /proc/1/fd/1 2>/proc/1/fd/2
+{{ BACKUP_MANAGER_CRON_EXP }} root /usr/sbin/backup-manager > /dev/stdout 2>/dev/stderr
 # empty line
